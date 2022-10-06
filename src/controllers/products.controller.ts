@@ -5,10 +5,14 @@ class ProductController {
   constructor(private productService = new ProductService()) { }
 
   public createProduct = async (req: Request, res: Response) => {   
-    console.log('teste');
     const product = req.body;
     const productCreated = await this.productService.createProduct(product);
     res.status(201).json(productCreated);
+  };
+
+  public getAllProducts = async (req: Request, res: Response) => {
+    const allProducts = await this.productService.getAllProducts();
+    res.status(200).json(allProducts);
   };
 }
 

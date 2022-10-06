@@ -13,6 +13,10 @@ class ProductService {
   public createProduct(product: Product): Promise<Product> {
     return this.model.createProduct(product);
   }
+
+  public getAllProducts(): Promise<Product[]> {
+    return this.model.getAllProducts();
+  }
 }
 
 export default ProductService;

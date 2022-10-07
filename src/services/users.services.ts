@@ -12,4 +12,12 @@ export default class UserServices {
   async createUser(user: User): Promise<void> {
     await this.model.createUser(user);
   }
+
+  async getUser(user: User): Promise<boolean> {
+    const [userExist] = await this.model.getUser(user);
+    if (userExist.exist === 0) {
+      return false;
+    }
+    return true;
+  }
 }

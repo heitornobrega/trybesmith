@@ -15,4 +15,15 @@ export default class UserControllers {
     const token = jwt.sign(user, process.env.JWT_SECRET as Secret);
     res.status(201).json({ token });
   };
+
+  public login = async (req: Request, res: Response) => {
+    const user = req.body;
+    console.log(user);
+    const userExist = await this.service.getUser(user);
+    if (userExist) {
+      const token = jwt.sign(user, process.env.JWT_SECRET as Secret);
+      return res.status(200).json({ token });
+    }
+    return res.status(401).json({ message: 'Username or password invalid' });
+  };
 }

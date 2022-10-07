@@ -28,4 +28,13 @@ export default class UserModel {
     ); 
     return result;
   }
+
+  public async getUserId(user: User): Promise<User[]> {
+    const { username, password } = user;
+    const [result] = await this.connection.execute<RowDataPacket[] & User[]>(
+      'SELECT * FROM Trybesmith.Users WHERE username = ? AND password = ?',
+      [username, password],
+    ); 
+    return result;
+  }
 }

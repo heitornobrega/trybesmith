@@ -1,6 +1,10 @@
 import { Pool, ResultSetHeader } from 'mysql2/promise';
 import Product from '../interfaces/product.inteface';
 
+interface NovaOrdem{
+  productsIds: number[]
+}
+
 export default class ProductModel {
   public connection: Pool;
 
@@ -24,5 +28,14 @@ export default class ProductModel {
       'SELECT * FROM Trybesmith.Products',
     );
     return result as Product[];
+  }
+
+  public async updateProductsOrders(orderId: number, order: NovaOrdem): Promise<void> {
+    const result = order.productsIds.map(async (element) => {
+      const insert = await this.connection
+        .execute('UPDATE Trybesmith.Products SET orderId=? WHERE id=?', [orderId, element]);
+      return insert;
+    });
+    Promise.all(result);
   }
 }

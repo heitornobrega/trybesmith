@@ -15,7 +15,6 @@ class OrderController {
     const userCredentials = (req as CustomRequest).token as User;
     const order = req.body;
     const orderPlacedSuccessfully = await this.ordersService.createOrder(userCredentials, order);
-    console.log(orderPlacedSuccessfully);
     res.status(201).json(orderPlacedSuccessfully);
   };
 }

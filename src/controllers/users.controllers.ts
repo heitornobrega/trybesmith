@@ -18,7 +18,6 @@ export default class UserControllers {
 
   public login = async (req: Request, res: Response) => {
     const user = req.body;
-    console.log(user);
     const userExist = await this.service.getUser(user);
     if (userExist) {
       const token = jwt.sign(user, process.env.JWT_SECRET as Secret);
